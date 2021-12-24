@@ -15,7 +15,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "api",
+    ### Django rest framework ###
+    "rest_framework",
+    ### Custom apps ###
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [

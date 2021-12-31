@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from . import controllers
 
 
 urlpatterns = [
-    path("", views.get_routes, name="routes"),
-    path("notes/", views.get_notes, name="notes"),
-    path("notes/<str:id>", views.get_note, name="note"),
+    path("", controllers.get_routes, name="routes"),
+    path("notes/", controllers.notes_controller, name="notes"),
+    path("notes/<str:id>/", controllers.note_controller, name="note"),
 ]

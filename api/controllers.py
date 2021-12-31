@@ -1,12 +1,11 @@
-from django.http import request
+from django.http.request import HttpRequest
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Notes
-from .serializers import NotesSerializer
+from .notes_service import NotesService
 
 
 @api_view(["GET"])
-def get_routes(req):
+def get_routes(req: HttpRequest):
     routes = [
         {
             "Endpoint": "/notes/",
@@ -43,23 +42,18 @@ def get_routes(req):
     return Response(routes)
 
 
-@api_view(["GET"])
-def get_notes(req: request):
-    notes = Notes.objects.all()
-    data = NotesSerializer(instance=notes, many=True).data
-
-    return Response(data)
-
-
-@api_view(["GET"])
-def get_note(req: request, id: str):
-    note = Notes.objects.get(id=id)
-    data = NotesSerializer(instance=note, many=False).data
-
-    return Response(data)
+@api_view(["GET", "POST"])
+def notes_controller(req: HttpRequest):
+    notes_service = NotesService()
+    if req.method == "GET":
+        return notes_service.get_all()
 
 
-# @api_view(["POST"])
-# def get_note(req: request):
+@api_view(["GET", "POST", "PUT", "DELETE"])
+def note_controller(req: HttpRequest, id: str):
+    notes_service = NotesService()
 
-#     return Response("Data")
+    if req.method == "GET":
+        return notes_service.get_one(id)
+    if req.method == "PUT":
+        return notes_service.update(req.data, id)

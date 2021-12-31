@@ -17,12 +17,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     ### Django rest framework ###
     "rest_framework",
+    "corsheaders",
     ### Custom apps ###
     "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -32,6 +34,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "noteapp.urls"
+
+# cors config
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3030",
+# ]
 
 TEMPLATES = [
     {
